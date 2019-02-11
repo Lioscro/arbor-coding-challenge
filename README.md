@@ -73,10 +73,16 @@ simply to find proteins with domains of interest. The two instances of Cas9,
 corresponding to protein ids `WP_053019794.1` and `WP_010922251.1` in the two
 .gbff files in the [sample_gbff](sample_gbff) folder can be found with the
 following commands.
-`python extract_protein_info.py GCF_001239625.1_7068_7_24_genomic.gbff --repeat-only -d Cas9`
+```
+python extract_protein_info.py GCF_001239625.1_7068_7_24_genomic.gbff --repeat-only -d Cas9
+```
 and
-`python extract_protein_info.py GCF_002014815.1_ASM201481v1_genomic.gbff --repeat-only -d Cas9`
+```
+python extract_protein_info.py GCF_002014815.1_ASM201481v1_genomic.gbff --repeat-only -d Cas9
+```
 In both cases, the script first filters the gbff file for proteins
 that are close (distance < `Numpy.Infinity`) to repeat regions,
 retrieves conserved domain predictions of these proteins, and then
-filters the table of conserved domains for the string `Cas9`.
+filters the table of conserved domains for the string `Cas9`. The
+resulting protein and domain tables will only contain information of
+the desired protein.
