@@ -373,7 +373,8 @@ def parse_gbff(gbff, filt=[], repeat_only=False):
                         found = found[0]
                         setattr(cds, term, found)
 
-                        if len(filt) > 0 and all(f in found for f in filt):
+                        if len(filt) > 0 and all(f.lower() in found.lower()
+                                                 for f in filt):
                             include = True
 
                 # If a filter is given, add the cds to the list only if
@@ -427,6 +428,8 @@ def filter_by_domain(df_cdss, df_domains, filt=[]):
     Given a list of domain filters filt, extract only proteins (CDS) that
     satisfy the filter in the 'superfamily' or 'Short name' fields.
     '''
+    print('Filtering by domain')
+    
     to_check = ['Superfamily', 'Short name']
 
     # First, filter the domains dataframe.
@@ -439,7 +442,8 @@ def filter_by_domain(df_cdss, df_domains, filt=[]):
         bool_col = np.array([False] * len(df_domains))
 
         for col in to_check:
-            bool_col = bool_col | df_domains[col].str.contains(f)
+            bool_col = (bool_col
+                        | df_domains[col].str.lower().str.contains(f.lower()))
 
         bool_list = bool_list & bool_col
 
